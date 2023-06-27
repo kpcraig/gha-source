@@ -30,3 +30,9 @@ jobs:
           git add .
           git commit -m "Automated dependency upgrades"
           git push -f origin ${{ github.ref_name }}:"$BRANCH_NAME"
+      - name: run target checks
+        id: target repository_dispatch
+        run: |
+          curl -L \
+          -X POST
+          https://api.github.com/repos/kpcraig/gha-target/dispatches
