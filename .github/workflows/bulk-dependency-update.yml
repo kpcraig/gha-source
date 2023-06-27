@@ -40,4 +40,4 @@ jobs:
           curl -L \
           -X POST \
           https://api.github.com/repos/kpcraig/gha-target/dispatches \
-          -d '{"abc":"def"}'
+          -d '{"event_type":"dispatch_test","client_payload":{"abc":"def"}}'
