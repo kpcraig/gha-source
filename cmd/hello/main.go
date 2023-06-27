@@ -1,7 +1,16 @@
 package hello
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/go-faker/faker/v4"
+)
 
 func main() {
-	fmt.Println("hello world!")
+	fmt.Printf("hello %s!\n", getFake())
+}
+
+// contrive a dependency
+func getFake() string {
+	return faker.FirstName()
 }
