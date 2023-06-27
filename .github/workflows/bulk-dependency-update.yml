@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BRANCH_NAME: auto-dependency-upgrades
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       # checkout
       - uses: actions/checkout@v3 # should be a sha, but eh
@@ -32,9 +33,11 @@ jobs:
           git add .
           git commit -m "Automated dependency upgrades"
           git push -f origin ${{ github.ref_name }}:"$BRANCH_NAME"
+      # this is the new step
       - name: run target checks
         id: dispatch
         run: |
           curl -L \
           -X POST
           https://api.github.com/repos/kpcraig/gha-target/dispatches
+          -d '{"abc":"def"}'
