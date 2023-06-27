@@ -33,7 +33,7 @@ jobs:
           git commit -m "Automated dependency upgrades"
           git push -f origin ${{ github.ref_name }}:"$BRANCH_NAME"
       - name: run target checks
-        id: target repository_dispatch
+        id: dispatch
         run: |
           curl -L \
           -X POST
