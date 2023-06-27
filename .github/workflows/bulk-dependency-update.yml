@@ -19,6 +19,7 @@ jobs:
           go list -u -m -json all | jq -r 'select(.Indirect != true and .Update != null) | .Path+"@"+.Update.Version' | xargs -L1 go get
           go mod tidy
       - name: detect changes
+        id: changes
         run : |
           echo "count=$(git status --porcelain=v1 2>/dev/null | wc -l)" >> "$GITHUB_OUTPUT"
       - name: commit/push
