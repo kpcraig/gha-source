@@ -38,6 +38,6 @@ jobs:
         id: dispatch
         run: |
           curl -L \
-          -X POST
-          https://api.github.com/repos/kpcraig/gha-target/dispatches
+          -X POST \
+          https://api.github.com/repos/kpcraig/gha-target/dispatches \
           -d '{"abc":"def"}'
