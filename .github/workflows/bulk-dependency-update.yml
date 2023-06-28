@@ -31,11 +31,13 @@ jobs:
           echo "count=$(git status --porcelain=v1 2>/dev/null | wc -l)" >> "$GITHUB_OUTPUT"
       - name: commit/push
         if: steps.changes.outputs.count > 0
+        id: git
         run: |
-          git config user.name hc-github-team-secure-vault-ecosystem
-          git config user.email hc-github-team-secure-vault-ecosystem@users.noreply.github.com
+          git config user.name kpc-bot
+          git config user.email kpc-bot@users.noreply.github.com
           git add .
           git commit -m "Automated dependency upgrades"
+          echo "sha=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
           git push -f origin ${{ github.ref_name }}:"$BRANCH_NAME"
       # this is the new step
       - name: run target checks
@@ -47,4 +49,4 @@ jobs:
           -H "Authorization: Bearer ${{secrets.CLASSIC_TOKEN}}" \
           -H "X-GitHub-Api-Version: 2022-11-28" \
           https://api.github.com/repos/kpcraig/gha-target/dispatches \
-          -d '{"event_type":"dispatch_test","client_payload":{"abc":"def"}}'
+          -d '{"event_type":"dispatch_test","client_payload":{"sha":"${{steps.git.outputs.sha}}","repo":"gha-target"}}'
