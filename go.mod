@@ -1,4 +1,4 @@
-module github.com/kpcraig/gh-source
+module github.com/kpcraig/gha-source
 
 go 1.20
 
